@@ -40,15 +40,15 @@ public class EmployeeController {
         return employeeService.findByDepartment(id);
     }
 
-//    @PutMapping("/api/v1/employees/{id}")
-//    public Employee updateEmployee(@PathVariable("id") long id, @RequestBody Employee employee){
-//        employee = employeeService.findById(id);
-//        return employeeService.saveEmployee(employee);
-//    }
+    @PutMapping("/api/v1/employees/{id}")
+    public Employee updateEmployee(@PathVariable("id") long id, @RequestBody Employee employee) throws Exception {
+       return employeeService.updateEmployee(id, employee);
+    }
 }
 
 
 
 
 
-/** TO DO: Unique account for everyone. Is the user exists, do not create it. */
+/** TO DO: Unique account for everyone. Is the user exists, do not create it.
+ * create EmployeeDTO (all employee fields without account. Replace with username from account. */

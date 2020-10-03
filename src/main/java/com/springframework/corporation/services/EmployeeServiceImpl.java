@@ -16,9 +16,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getAll() {
-        List<Employee> employeeList = employeeRepository.findAll();
-        employeeList.removeIf(Employee::isDeleted);
-        return employeeList;
+//        List<Employee> employeeList = employeeRepository.findAll();
+//        employeeList.removeIf(Employee::isDeleted);
+        return employeeRepository.findAllByIsDeletedFalse();
+        //transformToDTO(List<Employee> employeeList)
+        // return employeeDTO list;
     }
 
     @Override
@@ -48,6 +50,22 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employeeList = employeeRepository.findEmployeesByDepartmentId(id);
         employeeList.removeIf(Employee::isDeleted);
         return employeeList;
+    }
+
+    @Override
+    public Employee updateEmployee(long id, Employee employee) throws Exception {
+        Employee employeeFromDB = employeeRepository.findById(id);
+        if(employee != null){
+            employeeFromDB.setFirstName(employee.getFirstName());
+            employeeFromDB.setLastName(employee.getLastName());
+            employeeFromDB.setDeleted(employee.isDeleted());
+            employeeFromDB.setEmail(employee.getEmail());
+            employeeFromDB.setPhoneNumber(employee.getPhoneNumber());
+            employeeFromDB.setAccount(employee.getAccount());
+            return employeeRepository.save(employeeFromDB);
+        }else {
+            throw new Exception("Employee doesn't exist");
+        }
     }
 
 

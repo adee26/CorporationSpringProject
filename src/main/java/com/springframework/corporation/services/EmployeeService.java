@@ -11,4 +11,5 @@ public interface EmployeeService {
     Employee saveEmployee(Employee employee);
     void deleteById(long id);
     List<Employee> findByDepartment(long id);
+    Employee updateEmployee(long id, Employee employee) throws Exception;
 }
